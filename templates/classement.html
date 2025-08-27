@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classement du Loto</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/regles">Règles</a></li>
+                <li><a href="/index">Tirage</a></li>
+                <li><a href="/classement">Classement</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2>Classement des Joueurs</h2>
+
+            <h3>Numéros du Jackpot Gagnant</h3>
+            <div id="jackpot"></div> <!-- Zone pour afficher les numéros gagnants -->
+            <button id="generate-jackpot">Générer Jackpot</button> <!-- Bouton pour générer le jackpot -->
+
+            <div id="messages">
+                {% if success_message %}
+                    <p style="color: green;">{{ success_message }}</p>
+                {% endif %}
+                {% if error_message %}
+                    <p style="color: red;">{{ error_message }}</p>
+                {% endif %}
+            </div>
+
+
+            <!-- Section de la cagnotte -->
+            <div class="jackpot-section">
+                <h3>Cagnotte : <span id="prize-amount">{{ prize }} €</span></h3>
+                <input type="number" id="new-prize" placeholder="Nouvelle cagnotte" />
+                <button id="update-prize">Modifier</button>
+            </div>
+
+            <h3>Classement des Joueurs</h3>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Top</th>
+                        <th>Nom</th>
+                        <th>Numéros</th>
+                        <th>Étoiles</th>
+                        <th>Correspondance Numéros</th>
+                        <th>Proximité Numéros</th>
+                        <th>Correspondance Étoiles</th>
+                        <th>Proximité Étoiles</th>
+                        <th>Gains (€)</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-results">
+                    {% if total_players > 0 %}
+                        <!-- Affichage des joueurs -->
+                        {% for player in players %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ player.name }}</td>
+                                <td>{{ player.chosen_numbers }}</td>
+                                <td>{{ player.chosen_stars }}</td>
+                                <td>{{ player.matching_numbers }}</td>
+                                <td>{{ player.proximity_numbers }}</td>
+                                <td>{{ player.matching_stars }}</td>
+                                <td>{{ player.proximity_stars }}</td>
+                                <td>{{ player.gains }} €</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <!-- Si aucun joueur n'est inscrit, afficher un message -->
+                        <tr>
+                            <td colspan="9" style="text-align:center;">
+                                Aucun joueur inscrit pour le moment.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <script>
+        // Pour la modification de la cagnotte
+        document.getElementById('update-prize').onclick = function() {
+            const newPrizeValue = document.getElementById('new-prize').value;
+            if (newPrizeValue) {
+                fetch('/update_prize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prize: newPrizeValue })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.prize) {
+                        // Mettre à jour la cagnotte dans l'interface
+                        document.getElementById('prize-amount').textContent = data.prize + " €";
+                        document.getElementById('new-prize').value = ''; // Réinitialiser l'input
+
+                        // Afficher le message de succès
+                        document.getElementById('messages').innerHTML = `<p style='color: green;'>${data.success_message}</p>`;
+                    } else if (data.error_message) {
+                        // Afficher le message d'erreur
+                        document.getElementById('messages').innerHTML = `<p style='color: red;'>${data.error_message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('messages').innerHTML = "<p style='color: red;'>Erreur lors de la mise à jour de la cagnotte.</p>";
+                });
+            } else {
+                document.getElementById('messages').innerHTML = "<p style='color: red;'>Veuillez entrer un montant valide pour la cagnotte.</p>";
+            }
+        };
+
+        document.getElementById('generate-jackpot').onclick = function(event) {
+            event.preventDefault();
+            fetch('/generate_jackpot')
+                .then(response => response.json())
+                .then(data => {
+                    const jackpotDiv = document.getElementById('jackpot');
+                    jackpotDiv.innerHTML = `
+                        <div>
+                            <strong>Numéros Gagnants:</strong> 
+                            ${data.winning_numbers.map(num => `<span style="color: blue; font-weight: bold;">${num}</span>`).join(', ')}
+                        </div>
+                        <div>
+                            <strong>Étoiles:</strong> 
+                            ${data.winning_stars.map(star => `<span style="color: orange;font-weight: bold;">${star}</span>`).join(', ')}
+                        </div>
+                    `;
+                    compareResultsWithJackpot(data.winning_numbers, data.winning_stars);
+                })
+                .catch(error => console.error('Erreur lors de la récupération du jackpot:', error));
+        };
+
+        function compareResultsWithJackpot(winning_numbers, winning_stars) {
+            fetch('/ranking')
+                .then(response => response.json())
+                .then(data => {
+                    const players = data;
+
+                    // Afficher les joueurs triés
+                    const rankingBody = document.getElementById('ranking-results');
+                    rankingBody.innerHTML = '';
+
+                    players.forEach((player, index) => {
+                        const formatted_numbers = player.chosen_numbers.map(num => {
+                            return player.matching_numbers.includes(num) ?
+                                `<span style="color: blue; font-weight: bold;">${num}</span>` : num;
+                        }).join(', ');
+
+                        const formatted_stars = player.chosen_stars.map(star => {
+                            return player.matching_stars.includes(star) ?
+                                `<span style="color: orange; font-weight: bold;">${star}</span>` : star;
+                        }).join(', ');
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td> 
+                            <td>${player.name}</td>
+                            <td>${formatted_numbers}</td> 
+                            <td>${formatted_stars}</td>   
+                            <td>${player.matching_numbers.length}</td> 
+                            <td>${player.proximity_numbers}</td>    
+                            <td>${player.matching_stars.length}</td>
+                            <td>${player.proximity_stars}</td> 
+                            <td>${player.gains}</td> 
+                        `;
+                        rankingBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Erreur lors de la comparaison avec le jackpot:', error));
+        }
+
+        window.onload = function() {
+        };
+    </script>
+
+</body>
+</html>

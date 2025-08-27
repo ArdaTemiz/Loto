@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Règles du Jeu de Loto</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .highlight {
+            font-weight: bold;
+            color: #d9534f; /* Rouge pour attirer l'attention */
+        }
+
+        .highlight-jackpot {
+            color: #ff9800; /* Orange pour le jackpot */
+            font-weight: bold;
+        }
+
+        .highlight-numbers {
+            color: #007bff; /* Bleu pour les numéros */
+            font-weight: bold;
+        }
+
+        .highlight-stars {
+            color: #ff9800; /* Orange pour les étoiles */
+            font-weight: bold;
+        }
+
+        .distribution-list {
+            padding-left: 20px;
+        }
+
+        h2, h3 {
+            color: #007bff; /* Bleu pour les titres */
+        }
+
+        p, ul {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/regles">Règles</a></li>
+                <li><a href="/index">Tirage</a></li>
+                <li><a href="/classement">Classement</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <h2>Règles du Jeu de Loto</h2>
+            <p>
+                Bienvenue dans notre jeu du Loto ! Voici les <span class="highlight">règles principales</span> du jeu :
+            </p>
+            <ul>
+                <li><span class="highlight">5 numéros</span> tirés aléatoirement allant de <span class="highlight">1 à 49</span>.</li>
+                <li><span class="highlight">2 étoiles</span> tirées aléatoirement allant de <span class="highlight">1 à 9</span>.</li>
+                <li>Un même numéro ne peut pas être tiré deux fois dans la partie des 5 numéros et pareil pour les étoiles.</li>
+            </ul>
+            <p>
+                Un participant peut choisir ses propres numéros. Chaque partie comporte un seul tirage avec <span class="highlight-jackpot">3 000 000 €</span> à gagner, et cette somme doit obligatoirement être attribuée aux gagnants, qu'il y ait 1 ou 100 participants.
+            </p>
+
+            <h3>Répartition des Gains :</h3>
+            <ul class="distribution-list">
+                <li><span class="highlight">1<sup>er</sup></span> : 40 %</li>
+                <li><span class="highlight">2<sup>ème</sup></span> : 20 %</li>
+                <li><span class="highlight">3<sup>ème</sup></span> : 12 %</li>
+                <li><span class="highlight">4<sup>ème</sup></span> : 7 %</li>
+                <li><span class="highlight">5<sup>ème</sup></span> : 6 %</li>
+                <li><span class="highlight">6<sup>ème</sup></span> : 5 %</li>
+                <li><span class="highlight">7<sup>ème</sup></span> : 4 %</li>
+                <li><span class="highlight">8<sup>ème</sup></span> : 3 %</li>
+                <li><span class="highlight">9<sup>ème</sup></span> : 2 %</li>
+                <li><span class="highlight">10<sup>ème</sup></span> : 1 %</li>
+            </ul>
+
+            <p>
+                L’objectif est d’obtenir le plus de numéros identiques à ceux tirés, mais ce n’est pas strictement obligatoire. Le classement est basé sur la proximité avec les numéros tirés. <strong>L’ordre des numéros</strong> n’a pas d'importance.
+            </p>
+
+            <h3>Exemple :</h3>
+            <p>
+                Si les numéros tirés sont : <span class="highlight-numbers">10 - 48 - 42 - 12 - 06</span> et les étoiles <span class="highlight-stars">8 - 2</span>.
+                Une personne qui obtient ces mêmes numéros sera classée <span class="highlight">1<sup>ère</sup></span>.
+            </p>
+            <p>
+                Une autre personne qui a les numéros <span class="highlight-numbers">12 - 42 - 48 - 10 - 07</span> et les étoiles <span class="highlight-stars">8 - 2</span> sera classée <span class="highlight">2<sup>ème</sup></span>, car elle a trouvé quatre bons numéros et les 2 étoiles.
+            </p>
+            <p>
+                Si deux participants obtiennent les mêmes bons numéros et étoiles, alors les gains des positions concernées seront additionnés et partagés. Par exemple, pour les <span class="highlight">1<sup>er</sup></span> et <span class="highlight">2<sup>ème</sup></span> ayant les mêmes résultats :
+                <em>(40 % + 20 %) / 2 = 30 % chacun.</em>
+            </p>
+
+            <h3>Étoiles et critères de classement :</h3>
+            <p>
+                Les étoiles sont considérées comme un <strong>bonus</strong>. Si une personne obtient <span class="highlight">4 bons numéros</span> sans étoile, elle sera mieux classée qu'une personne ayant <span class="highlight">3 bons numéros</span> et <span class="highlight">1 étoile</span>.
+            </p>
+            <p>
+                Si une personne a des numéros éloignés, par exemple : <span class="highlight-numbers">11 - 49 - 41 - 11 - 05</span>, elle sera moins bien classée qu'une personne qui n'a pas trouvé de bons numéros, mais une bonne étoile.
+            </p>
+
+            <h3>Gestion des participants :</h3>
+            <p>
+                S'il y a seulement <span class="highlight">cinq participants</span>, ils seront automatiquement gagnants. Ils seront classés en fonction de la proximité de leurs résultats avec ceux tirés.
+            </p>
+
+            <h3>Redistribution des gains si moins de 10 participants :</h3>
+            <p>
+                Si le nombre de participants est inférieur à 10, les pourcentages des places non attribuées seront redistribués proportionnellement en fonction des pourcentages des participants restants.
+            </p>
+            <p>
+                La formule de redistribution est la suivante :
+                <em>3.000.000 x (% Gain joueur / Somme % des gagnants)</em>
+            </p>
+            <p>
+                Cela garantit que les joueurs mieux classés reçoivent une part plus importante des gains restants, assurant ainsi une répartition plus équitable.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

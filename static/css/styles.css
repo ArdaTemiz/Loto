@@ -1,0 +1,202 @@
+/* Styles globaux pour tout le site */
+body {
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Styles pour la barre de navigation */
+.navbar {
+    width: 100%;
+    background-color: #003366; /* Bleu foncé */
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Contenu principal */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #007bff;
+    margin: 20px 0;
+}
+
+/* Grilles et tableaux */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Fixe la largeur des colonnes */
+}
+
+.container2 {
+    height: 25rem;
+    overflow-y: scroll;
+}
+
+.ranking-table th, .ranking-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.ranking-table th {
+    background-color: #f2f2f2;
+}
+
+/* Boutons et formulaires */
+input, button {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Messages de succès et erreurs */
+.message {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.message.error {
+    background-color: #f44336;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Responsivité */
+@media screen and (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+    }
+
+    h2, h3 {
+        font-size: 1.8em;
+    }
+
+    input, button {
+        font-size: 14px;
+    }
+
+    .ranking-table th, .ranking-table td {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .grid {
+        grid-template-columns: repeat(5, 1fr); /* Adapter la grille pour les petits écrans */
+        gap: 5px;
+    }
+
+    .container2 {
+        height: 20rem;
+    }
+
+    h2, h3 {
+        font-size: 1.5em;
+    }
+
+    input, button {
+        font-size: 14px;
+    }
+
+    .ranking-table th, .ranking-table td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* Pour très petits écrans */
+        gap: 3px;
+    }
+
+    h2, h3 {
+        font-size: 1.2em;
+    }
+
+    .ranking-table th, .ranking-table td {
+        font-size: 10px;
+    }
+
+    input, button {
+        font-size: 12px;
+    }
+}

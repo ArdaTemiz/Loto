@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato&display=swap" rel="stylesheet">
+    <title>Accueil</title>
+</head>
+<body>
+
+    <div class="container-first">
+        <h1 class="main-title"><span>Tentez </span><span>votre </span><span>chance </span></h1>
+        <div class="container-btns">
+            <button class="btn-first b1">
+                <a class="mon-bouton" href="/regles">Voir les règles</a>
+            </button>
+            <button class="btn-first b2">
+                <a class="mon-bouton" href="/index">S'inscrire</a>
+            </button>
+            <button class="btn-first b3">
+                <a class="mon-bouton" href="/classement">Voir le classement</a>
+            </button>
+        </div>
+    </div>
+
+    <ul class="medias">
+        <li class="bulle">
+            <a target="_blank" href="https://www.youtube.com">
+                <img src="{{ url_for('static', filename='images/yt.svg') }}" class="logo-medias" alt="Logo youtube">   
+            </a>
+        </li>
+        <li class="bulle">
+            <a target="_blank" href="https://www.instagram.com/">
+                <img src="{{ url_for('static', filename='images/insta.svg') }}" class="logo-medias" alt="Logo Instagram">
+            </a>
+        </li>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+
+</body>
+</html>

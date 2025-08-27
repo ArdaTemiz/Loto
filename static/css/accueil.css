@@ -1,0 +1,184 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100vh;
+    background: url('../images/fond_loto.jpg') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay sombre sur l'image pour améliorer la lisibilité du texte */
+    z-index: 0; /* Assure que l'overlay est derrière le texte */
+}
+
+.container-first {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    z-index: 1; /* S'assurer que le texte reste au-dessus de l'overlay */
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 100px;
+    color: #f1f1f1;
+    font-family: 'Abril Fatface', sans-serif;
+    line-height: 1.2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); /* Ajout d'une ombre au texte pour une meilleure visibilité */
+}
+
+h1 span {
+    position: relative;
+}
+
+.container-btns {
+    position: relative;
+    top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.btn-first {
+    border: 2px solid #f1f1f1;
+    outline: none;
+    background: transparent;
+    font-size: 28px;
+    padding: 20px;
+    width: 250px;
+    color: #f1f1f1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Ajout d'une légère ombre pour le texte des boutons */
+}
+
+.btn-first:hover {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.mon-bouton {
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.medias {
+    list-style-type: none;
+    position: absolute;
+    right: 20px;
+    bottom: 20px; /* Placement des bulles en bas à droite */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.bulle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    background: #f1f1f1;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.bulle:hover {
+    background: #ddd;
+}
+
+.logo-medias {
+    width: 30px;
+    height: 30px;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+    h1 {
+        font-size: 80px;
+    }
+
+    .container-btns {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn-first {
+        font-size: 24px;
+        padding: 15px;
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .container-first {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    }
+
+    .container-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-first {
+        width: 200px;
+        font-size: 20px;
+        padding: 12px;
+    }
+
+    .bulle {
+        display: none;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+
